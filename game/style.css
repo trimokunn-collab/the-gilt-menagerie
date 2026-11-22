@@ -1,0 +1,199 @@
+/* The Gilt Menagerie — page and HUD styling.
+   Palette: deep ink blue, gilt gold, alarm red, parchment text. */
+
+:root {
+  --ink: #0b0e1a;
+  --ink-2: #11152a;
+  --panel: #161b36;
+  --line: #2a3157;
+  --gold: #e8b64c;
+  --gold-soft: #f5d78a;
+  --parchment: #f0e7d3;
+  --muted: #9aa3c7;
+  --red: #e5484d;
+  --green: #57c98a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(1200px 700px at 50% -10%, #1a2044 0%, var(--ink) 60%);
+  color: var(--parchment);
+  font-family: Georgia, "Times New Roman", serif;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 14px 22px 10px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand-mark { color: var(--gold); font-size: 20px; }
+.brand h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  color: var(--gold-soft);
+  font-variant: small-caps;
+}
+.brand-sub { color: var(--muted); font-style: italic; font-size: 14px; }
+
+.hud { display: flex; align-items: stretch; gap: 10px; flex-wrap: wrap; }
+.hud-cell {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 12px;
+  min-width: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hud-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hud-value { font-size: 20px; color: var(--gold-soft); font-weight: bold; }
+.hud-sub { font-size: 12px; color: var(--muted); font-style: italic; }
+
+.hud-alarm { min-width: 170px; }
+.alarm-track {
+  height: 12px;
+  margin: 4px 0 2px;
+  background: #232847;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.alarm-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d9a441, #e07b39 55%, var(--red));
+  transition: width 90ms linear;
+}
+
+.hud-btn {
+  align-self: center;
+  background: var(--ink-2);
+  color: var(--parchment);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.hud-btn:hover { border-color: var(--gold); color: var(--gold-soft); }
+
+.objective {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 22px 8px;
+  color: var(--gold-soft);
+  font-style: italic;
+  font-size: 15px;
+}
+
+.stage {
+  position: relative;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+canvas#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #05060d;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 6, 13, 0.72);
+  border-radius: 10px;
+  z-index: 5;
+}
+.overlay.hidden { display: none; }
+
+.card {
+  max-width: 520px;
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 26px 30px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  text-align: left;
+}
+.card-bad { border-color: var(--red); }
+.card-good { border-color: var(--green); }
+.card-kicker {
+  margin: 0 0 4px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--muted);
+}
+.card h2 { margin: 0 0 10px; font-size: 28px; color: var(--gold-soft); font-variant: small-caps; }
+.card-bad h2 { color: #ff9a9d; }
+.card-good h2 { color: #a9e8c6; }
+.card-text { margin: 0 0 10px; line-height: 1.5; font-size: 15px; }
+.card-text.warn { color: #ffb3b5; }
+.card-list { margin: 0 0 12px; padding-left: 18px; line-height: 1.65; font-size: 15px; }
+.card-list strong { color: var(--gold-soft); }
+
+.cta {
+  background: var(--gold);
+  color: #221a05;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.cta:hover { background: var(--gold-soft); }
+
+.score-box {
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 4px 0 12px;
+  line-height: 1.7;
+  font-size: 15px;
+}
+.score-box .score-total { font-size: 20px; color: var(--gold-soft); font-weight: bold; }
+.score-box .score-note { color: var(--muted); font-style: italic; }
+
+.footbar {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 10px 22px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 26px;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+}
