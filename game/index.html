@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gilt Menagerie — a one-night museum heist</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">&#9670;</span>
+      <h1>The Gilt Menagerie</h1>
+      <span class="brand-sub">one night &middot; one thief &middot; twelve treasures</span>
+    </div>
+    <div class="hud" aria-live="polite">
+      <div class="hud-cell">
+        <span class="hud-label">Take</span>
+        <span class="hud-value" id="hud-loot">$0</span>
+        <span class="hud-sub" id="hud-loot-count">0 / 12 pieces</span>
+      </div>
+      <div class="hud-cell">
+        <span class="hud-label">Goal</span>
+        <span class="hud-value" id="hud-goal">$40,000</span>
+        <span class="hud-sub" id="hud-goal-state">door locked</span>
+      </div>
+      <div class="hud-cell hud-alarm">
+        <span class="hud-label">Alarm</span>
+        <div class="alarm-track"><div class="alarm-fill" id="hud-alarm"></div></div>
+        <span class="hud-sub" id="hud-alarm-state">quiet</span>
+      </div>
+      <div class="hud-cell">
+        <span class="hud-label">Time</span>
+        <span class="hud-value" id="hud-time">0:00</span>
+        <span class="hud-sub" id="hud-seen">never spotted</span>
+      </div>
+      <button class="hud-btn" id="btn-sound" title="Toggle sound (M)">Sound: on</button>
+      <button class="hud-btn" id="btn-restart" title="Restart the night (R)">Restart</button>
+    </div>
+  </header>
+
+  <p class="objective" id="objective">Lift at least $40,000 of treasure, then slip out the south door.</p>
+
+  <main class="stage">
+    <canvas id="game" width="1440" height="1200"></canvas>
+
+    <div class="overlay" id="screen-start">
+      <div class="card">
+        <p class="card-kicker">Tonight&rsquo;s job</p>
+        <h2>The Gilt Menagerie</h2>
+        <p class="card-text">
+          A private menagerie of jewelled animals, locked up for the night.
+          Cross the galleries, lift what you can carry, and leave by the
+          south door &mdash; the door only opens once your bag holds
+          <strong>$40,000</strong> of treasure.
+        </p>
+        <ul class="card-list">
+          <li><strong>Move</strong> &mdash; WASD or arrow keys</li>
+          <li><strong>Sneak</strong> &mdash; hold Shift: slower, quieter, harder to spot</li>
+          <li><strong>Steal</strong> &mdash; walk onto a glowing treasure</li>
+          <li><strong>Hide</strong> &mdash; walls, cabinets and cases block sight</li>
+          <li><strong>Restart</strong> &mdash; R &nbsp;&middot;&nbsp; <strong>Sound</strong> &mdash; M</li>
+        </ul>
+        <p class="card-text warn">
+          Guard lanterns and camera eyes fill the alarm. A full alarm ends the night.
+        </p>
+        <button class="cta" id="btn-start">Begin the heist</button>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="screen-caught">
+      <div class="card card-bad">
+        <p class="card-kicker">The alarm wins</p>
+        <h2>Caught in the light</h2>
+        <p class="card-text" id="caught-text">
+          The menagerie wakes up around you. The bag is emptied, the
+          treasures go back on their plinths, and the night starts over.
+        </p>
+        <div class="score-box" id="caught-score"></div>
+        <button class="cta" id="btn-retry">Try the night again</button>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="screen-win">
+      <div class="card card-good">
+        <p class="card-kicker">Clean getaway</p>
+        <h2>Out into the night</h2>
+        <p class="card-text">
+          The south door sighs shut behind you. Somewhere across the city,
+          a fence is about to have a very good morning.
+        </p>
+        <div class="score-box" id="win-score"></div>
+        <button class="cta" id="btn-again">Run it again &mdash; guards are quicker now</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footbar">
+    <span>Guard lanterns sweep as they patrol &mdash; a lit thief fills the alarm fast.</span>
+    <span>Cameras blink red while you are in their eye.</span>
+    <span>The Star Crown in the vault is worth $40,000 alone, if you dare.</span>
+  </footer>
+
+  <script src="audio.js"></script>
+  <script src="levels.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
